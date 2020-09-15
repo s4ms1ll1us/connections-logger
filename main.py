@@ -14,9 +14,9 @@ def main():
         print("[-] No interface specified. Please set one with option -i.")
         exit(1)
 
-    data_collector = DataCollector()
     resolver = Resolver()
-    sniffer = Sniffer(interface, data_collector, resolver)
+    data_collector = DataCollector(resolver)
+    sniffer = Sniffer(interface, data_collector)
     try:
         sniffer.sniff()
     except PermissionError:

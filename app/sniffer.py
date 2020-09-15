@@ -7,10 +7,9 @@ except ImportError:
 
 
 class Sniffer:
-    def __init__(self, interface, data_preparer, resolver):
+    def __init__(self, interface, data_preparer):
         self.interface = interface
         self.data_preparer = data_preparer
-        self.resolver = resolver
 
     def sniff(self):
         self.data_preparer.reset()
@@ -23,8 +22,4 @@ class Sniffer:
         if scapy.IP in packet:
             src_ip = packet[scapy.IP].src
             dst_ip = packet[scapy.IP].dst
-            self.data_preparer.add_packet_info(PacketInfo(src_ip, dst_ip))
-            location_info = self.resolver.get_location_info(dst_ip)
-            if location_info is not None:
-                print(f"The IP address {dst_ip} is from {location_info['city']} "
-                      f"({location_info['region']}/{location_info['country']}).")
+            self.data_preparer.update_packet_info(PacketInfo(src_ip, dst_ip))
