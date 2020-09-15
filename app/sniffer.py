@@ -11,10 +11,13 @@ class Sniffer:
 
     def sniff(self):
         try:
-            scapy.sniff(iface=self.interface, store=False, prn=self.process_packet)
+            scapy.sniff(filter='ip', iface=self.interface, store=False, prn=self.process_packet)
         except PermissionError:
             raise PermissionError("Permission error: It is required to run the sniffer as sudo.")
 
     @staticmethod
     def process_packet(packet):
-        print(f"Direction: {packet.direction} Destination: {packet.dst}")
+        if scapy.IP in packet:
+            ip_src = packet[scapy.IP].src
+            ip_dst = packet[scapy.IP].dst
+            print(f"Source: {ip_src} Destination: {ip_dst}")
