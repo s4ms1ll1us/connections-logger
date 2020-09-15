@@ -1,14 +1,23 @@
-import socket
-from .resolve_error import ResolveError
+from urllib.request import urlopen
+import json
 
 
 class Resolver:
-    @staticmethod
-    def get_host(ip):
-        try:
-            host = socket.gethostbyaddr(ip)
-        except socket.herror:
-            raise ResolveError("Cannot resolve the ip address.")
+    def get_location_info(self, ip):
+        data = self.__get_data(ip)
+        # It is assumed that the data is always complete
+        if 'country' in data and 'region' in data and 'city' in data:
+            return {
+                'country': data['country'],
+                'region': data['region'],
+                'city': data['city']
+            }
 
-        if len(host) > 0 and host[0] is not None:
-            return host[0]
+    def __get_data(self, ip):
+        url = self.__create_url(ip)
+        response = urlopen(url)
+        return json.load(response)
+
+    @staticmethod
+    def __create_url(ip):
+        return f"https://ipinfo.io/{ip}/json"

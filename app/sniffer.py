@@ -1,5 +1,4 @@
 from .packet_info import PacketInfo
-from .resolve_error import ResolveError
 try:
     import scapy.all as scapy
 except ImportError:
@@ -25,9 +24,7 @@ class Sniffer:
             src_ip = packet[scapy.IP].src
             dst_ip = packet[scapy.IP].dst
             self.data_preparer.add_packet_info(PacketInfo(src_ip, dst_ip))
-            try:
-                host = self.resolver.get_host(dst_ip)
-                print(f"{host} has IP address {dst_ip}")
-            except ResolveError:
-                # TODO filter this
-                print(f"Cannot resolve IP address {dst_ip}")
+            location_info = self.resolver.get_location_info(dst_ip)
+            if location_info is not None:
+                print(f"The IP address {dst_ip} is from {location_info['city']} "
+                      f"({location_info['region']}/{location_info['country']}).")
