@@ -1,4 +1,3 @@
-from .connection_endpoints import ConnectionEndpoints
 try:
     import scapy.all as scapy
 except ImportError:
@@ -20,6 +19,5 @@ class Sniffer:
 
     def __process_packet(self, packet):
         if 'IP' in packet:
-            src_ip = packet['IP'].src
             dst_ip = packet['IP'].dst
-            self.__data_collector.update_connection_endpoints(ConnectionEndpoints(src_ip, dst_ip))
+            self.__data_collector.update_endpoint(dst_ip)
