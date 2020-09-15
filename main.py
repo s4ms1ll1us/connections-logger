@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from app import Configuration
-from app import Sniffer
-from app import DataCollector
-from app import Resolver
+from core import Configuration
+from core import Sniffer
+from core import DataCollector
+from core import Resolver
 
 
 def main():
