@@ -16,7 +16,7 @@ def main():
     try:
         sniffer.sniff()
     except PermissionError:
-        print("[-] It is required to run the sniffer as sudo.")
+        print("[-] No permissions to capture packets on the specified interface. You may have to run it with sudo privileges.")
 
 
 if __name__ == '__main__':
