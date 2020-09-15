@@ -1,7 +1,7 @@
 import argparse
 
 
-class Configurator:
+class Configuration:
     @staticmethod
     def get_interface():
         parser = argparse.ArgumentParser()

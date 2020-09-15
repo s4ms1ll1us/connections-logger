@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-from app import Configurator
+from app import Configuration
 from app import Sniffer
 
 
 def main():
-    configurator = Configurator()
+    configuration = Configuration()
     try:
-        interface = configurator.get_interface()
+        interface = configuration.get_interface()
     except ValueError:
         print("[-] No interface specified. Please set one with option -i.")
         exit(1)
