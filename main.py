@@ -8,6 +8,7 @@ from app import Resolver
 
 def main():
     configuration = Configuration()
+    interface = ''
     try:
         interface = configuration.get_interface()
     except ValueError:

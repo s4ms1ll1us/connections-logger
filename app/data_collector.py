@@ -1,20 +1,21 @@
 class DataCollector:
     def __init__(self, resolver):
         self.__resolver = resolver
-        self.__packet_infos = []
+        self.__connections = []
 
-    def update_packet_info(self, packet_info):
+    def update_connection_endpoints(self, connection):
         # Currently only destination ips are interesting.
-        new_dst_ip = packet_info.dst_ip
+        new_dst_ip = connection.dst_ip
         location_info = self.__resolver.get_location_info(new_dst_ip)
         if location_info is None:
             return
-        for info in self.__packet_infos:
+        for info in self.__connections:
             if info.dst_ip == new_dst_ip:
                 return
-        self.__packet_infos.append(packet_info)
+        self.__connections.append(connection)
+        # TODO extract this to dedicated class
         print(f"The IP address {new_dst_ip} is from {location_info['city']} "
               f"({location_info['region']}/{location_info['country']}).")
 
     def reset(self):
-        self.__packet_infos.clear()
+        self.__connections.clear()
