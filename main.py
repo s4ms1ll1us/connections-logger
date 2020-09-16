@@ -6,13 +6,10 @@ from core import Resolver
 
 def main():
     configuration = Configuration()
-    interface = ''
-    try:
-        interface = configuration.get_interface()
-    except ValueError:
+    interface = configuration.get_interface()
+    if interface is None:
         print("[-] No interface specified. Please set one with option -i.")
         exit(1)
-
     resolver = Resolver()
     data_collector = DataCollector(resolver)
     sniffer = Sniffer(interface, data_collector)
