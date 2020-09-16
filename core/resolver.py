@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 import json
+import socket
 
 
 class Resolver:
@@ -13,11 +14,19 @@ class Resolver:
                 'city': data['city']
             }
 
+    def get_location_resolver_ip(self):
+        domain = self.__get_domain()
+        return socket.gethostbyname(domain)
+
     def __get_data(self, ip):
         url = self.__create_url(ip)
         response = urlopen(url)
         return json.load(response)
 
+    def __create_url(self, ip):
+        domain = self.__get_domain()
+        return f"https://{domain}/{ip}/json"
+
     @staticmethod
-    def __create_url(ip):
-        return f"https://ipinfo.io/{ip}/json"
+    def __get_domain():
+        return "ipinfo.io"
