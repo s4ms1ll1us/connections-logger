@@ -16,7 +16,7 @@ class DataCollector:
         self.__endpoints.append(endpoint)
 
         # TODO extract this to dedicated class
-        print(f"The IP address {new_dst_ip} is from {location_info['city']} "
+        print(f"Connected to {new_dst_ip} which is located in {location_info['city']} "
               f"({location_info['region']}/{location_info['country']}).")
 
     def reset(self):
