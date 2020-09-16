@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from core import Configuration
 from core import Sniffer
 from core import DataCollector
